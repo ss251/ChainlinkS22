@@ -19,18 +19,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      working-directory: frontend
+    - uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: "yarn"
     - run: yarn install
-      working-directory: client
+      working-directory: frontend
     - run: yarn build --if-present
       working-directory: frontend
       env:
         NEXT_PUBLIC_MORALIS_APP_ID: ${{ secrets.NEXT_PUBLIC_MORALIS_APP_ID }}
         NEXT_PUBLIC_MORALIS_SERVER_URL: ${{ secrets.NEXT_PUBLIC_MORALIS_SERVER_URL }}
         NEXT_PUBLIC_WEB3_API_KEY: ${{ secrets.NEXT_PUBLIC_WEB3_API_KEY }}
+      
 
   run-action:
     runs-on: ubuntu-latest
