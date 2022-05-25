@@ -3,6 +3,10 @@
 
 name: IPFS deploy
 
+defaults:
+  run:
+    working-directory: frontend
+
 on:
   push:
     branches: [ main ]
